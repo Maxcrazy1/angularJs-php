@@ -3,10 +3,11 @@ myApp.controller("myController", function($scope,$http){
 	$scope.info = "";
 	$scope.datos= {};
 	$scope.newPro= {};
-	// función principal que carga la lista
-	$http.get("controlador/dirigidor.php?getProductos")
-	.then(function (response) {$scope.names = response.data.records;});
 
+	// función principal que carga la lista
+	$http.get("controlador/manejador.php")
+	.then(function (response) {$scope.names = response.data.records;});
+	
 	// función que permite mostrar los datos de l usuario clickado
 	$scope.selectPro = function(names){
 		$scope.newPro = names;
@@ -15,7 +16,6 @@ myApp.controller("myController", function($scope,$http){
 	$scope.clearInfo = function(){
 		$scope.info = "";
 	};
-	
 	
 	// método para guardar datos
 	$scope.enviar = function(){
@@ -28,8 +28,6 @@ myApp.controller("myController", function($scope,$http){
 				$scope.precio = '';
 				$scope.pais = '';
 				console.log(response); 
-				
-				
 			});
 		}    
 		
@@ -50,12 +48,10 @@ myApp.controller("myController", function($scope,$http){
 			$scope.eliminar = function(){
 				$scope.names.splice( $scope.names.indexOf($scope.datos), 1 );
 				$scope.info = "¡Producto eliminado del inventario!";
-				$http.post("controlador/manejador.php",{nombre:$scope.datos.Nombre,
-					pais:$scope.datos.pais,
+				$http.post("controlador/manejador.php",{nombre:$scope.newPro.Nombre,
+					pais:$scope.newPro.pais,
 					accion:'eliminar'})
 					.then(function () {
-						
 					});
 				}   
-				
 			});

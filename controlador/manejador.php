@@ -5,28 +5,30 @@ $obj = json_decode($json);
 require ('dirigidor.php');
 $ejecucion=new guardado();
 
-$accion=$obj->accion;
-$nombre=$obj->nombre;
-$precio=$obj->precio;
-$pais=$obj->pais;
-
-switch ($accion) {
+if (isset($obj)){
     
-    case 'guardar':
-        $ejecucion->setGuardado($nombre,$precio,$pais);
-    break;
+    $accion=$obj->accion;
+    $nombre=$obj->nombre;
+    $precio=$obj->precio;
+    $pais=$obj->pais;
     
-    case 'eliminar':
-        $ejecucion->deleteProductos($nombre,$pais);
-    break;
-    
-    case 'modificar':
-        $ejecucion->modifProducto($nombre,$precio,$pais);
-    break;
+    switch ($accion) {
         
-    default:
-        echo "No hay nada pa ti";
-    break;
+        case 'guardar':
+        $ejecucion->setGuardado($nombre,$precio,$pais);
+        break;
+        
+        case 'eliminar':
+        $ejecucion->deleteProductos($nombre,$pais);
+        break;
+        
+        case 'modificar':
+            $ejecucion->modifProducto($nombre,$precio,$pais);
+            break;
+        }
+    }else{
+        $ejecucion->getProductos();
+        
     }
     
     ?>
